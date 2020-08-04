@@ -33,7 +33,9 @@ function App() {
     return (
     <div className="App">
       <div id="editor">
-        Editor
+          <div className="editor-text">
+              Editor
+          </div>
         <textarea
             type="text"
             rows="12"
