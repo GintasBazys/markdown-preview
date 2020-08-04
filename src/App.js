@@ -5,14 +5,13 @@ import "./App.css";
 
 function App() {
 
-    const [content, setContent] = useState("");
+    const [content, setContent] = useState("# Welcome to my React Markdown Previewer!<hr>");
 
-    const initialContent = "# Welcome to my React Markdown Previewer!<hr>";
+    //const initialContent = "# Welcome to my React Markdown Previewer!<hr>";
 
-    useEffect(() => {
-
-      setContent(initialContent);
-    }, []);
+    // useEffect(() => {
+    //   setContent(initialContent);
+    // }, []);
 
     useEffect(() => {
         document.getElementById('preview').innerHTML =
@@ -21,7 +20,10 @@ function App() {
 
 
     const handleChange = event => {
-        setContent(event.target.value)
+        if(event.key === "Enter") {
+            setContent(event.target.value + "<hr>")
+        }
+        else setContent(event.target.value)
     }
 
     const handleKeyPress = event => {

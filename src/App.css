@@ -17,3 +17,7 @@
   text-align: center;
 }
 
+table { border-collapse: collapse; margin: auto; }
+tr { border-bottom: solid 1px black; }
+tr:nth-child(even) {background-color: #f2f2f2;}
+
