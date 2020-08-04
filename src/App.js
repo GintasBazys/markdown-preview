@@ -1,24 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, useEffect} from 'react';
+import marked from "marked";
+import DOMPurify from "dompurify";
+import "./App.css";
 
 function App() {
-  return (
+
+    const [content, setContent] = useState("");
+
+    const initialContent = "# Welcome to my React Markdown Previewer!<hr>";
+
+    useEffect(() => {
+
+      setContent(initialContent);
+    }, []);
+
+    useEffect(() => {
+        document.getElementById('preview').innerHTML =
+            marked(DOMPurify.sanitize(content));
+    }, [content]);
+
+
+    const handleChange = event => {
+        setContent(event.target.value)
+    }
+
+    const handleKeyPress = event => {
+        if(event.key === "Enter") {
+            setContent(event.target.value + "<hr>")
+        }
+    }
+
+    return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div id="editor">
+        Editor
+        <textarea
+            type="text"
+            rows="12"
+            cols="12"
+            value={content}
+            onKeyPress={handleKeyPress}
+            onChange={handleChange}/>
+      </div>
+        <div className="preview-text">PREVIEW</div>
+        <div id="preview">
+        </div>
     </div>
   );
 }
